@@ -9,12 +9,30 @@
     tools:showIn="@layout/app_bar_main">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/boton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="119dp"
-        android:layout_marginTop="119dp"
-        android:text="fer" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="211dp"
+        android:text="Setear Hora" />
+
+    <Button
+        android:id="@+id/cancelar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/boton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:text="Cancelar" />
+
+    <TextView
+        android:id="@+id/texto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/boton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="132dp"
+        android:text="Alarma para: 12:00"
+        android:textSize="36sp" />
 </RelativeLayout>
