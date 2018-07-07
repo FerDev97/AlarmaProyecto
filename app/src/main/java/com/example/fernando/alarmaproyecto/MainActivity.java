@@ -1,14 +1,20 @@
 package com.example.fernando.alarmaproyecto;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 //import android.net.Uri;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 //import android.text.format.DateFormat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +27,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
 import java.text.DateFormat;
 
 import java.util.Calendar;
@@ -28,8 +36,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TimePickerDialog.OnTimeSetListener {
 
-
-    TextView text;
+    int hora,minuto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,50 +61,50 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        text=(TextView)findViewById(R.id.texto);
-
-        Button boton=(Button)findViewById(R.id.boton);
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment timerPicker=new TimePickerFragment();
-                timerPicker.show(getSupportFragmentManager(), "Time picker");
-            }
-        });
-
-        Button cancel=(Button)findViewById(R.id.cancelar);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cancelarAlarmna();
-            }
-        });
     }
 
-    private void cancelarAlarmna() {
-
+    public void ponerAlarma(View view){
+        Calendar calendar=Calendar.getInstance();
+        TimePickerDialog timePickerDialog=new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
+                hora=hour;
+                minuto=minutes;
+            }
+        },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false);
+        timePickerDialog.show();
     }
 
+    public void iniciar(View view){
+        Intent intent=new Intent(this,AlertReceiver.class);
+        PendingIntent pendingIntent=PendingIntent.getBroadcast(this.getApplicationContext(),23433,intent,0);
+        AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
+        Calendar calendar=Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,hora);
+        calendar.set(Calendar.MINUTE,minuto);
+        calendar.set(Calendar.SECOND,0);
+
+
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+
+            //AQUI VENDRIA LA NOTIFICACION
+            Toast.makeText(this,"Prueba de la Alarma Arriba KK",Toast.LENGTH_LONG).show();
+        }else{
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+            Intent intent2=new Intent(this,PruebaActivity.class);
+            startActivity(intent2);
+            //AQUI VENDRIA LA NOTIFICACION
+            Toast.makeText(this,"Prueba de la Alarma Abajo KK",Toast.LENGTH_LONG).show();
+        }
+    }
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hora, int minuto) {
         Calendar c=Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, hora);
         c.set(Calendar.MINUTE, minuto);
-        c.set(Calendar.SECOND, 0);
-
-        actualizar(c);
-        iniciarAlarma(c);
-    }
-
-    private void iniciarAlarma(Calendar c) {
-        AlarmManager alarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
-    }
-
-    private void actualizar(Calendar c) {
-        String texto="Alarma a las: "+ DateFormat.getTimeInstance(DateFormat.SHORT).format(c);
-    }
+        c.set(Calendar.SECOND, 0);    }
     
 
     @Override
