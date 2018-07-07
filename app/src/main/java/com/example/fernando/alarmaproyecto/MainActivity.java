@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.TimePickerDialog;
 //import android.net.Uri;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -66,7 +67,6 @@ public class MainActivity extends AppCompatActivity
                 timerPicker.show(getSupportFragmentManager(), "Time picker");
             }
         });
-
         Button cancel=(Button)findViewById(R.id.cancelar);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +76,14 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    private void cancelarAlarmna() {
+    public void cancelarAlarmna() {
+        System.out.println("Hola");
+    }
+    //Metodos para enviar notificaciones
+    public void notificacion(View view){
+
+    }
+    public void notificacion2(View view){
 
     }
 
@@ -86,18 +93,19 @@ public class MainActivity extends AppCompatActivity
         Calendar c=Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, hora);
         c.set(Calendar.MINUTE, minuto);
-        c.set(Calendar.SECOND, 0);
-
         actualizar(c);
         iniciarAlarma(c);
     }
 
     private void iniciarAlarma(Calendar c) {
-        AlarmManager alarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarma=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        //Aqaui me he quedado
     }
 
     private void actualizar(Calendar c) {
-        String texto="Alarma a las: "+ DateFormat.getTimeInstance(DateFormat.SHORT).format(c);
+
+        String texto="Alarma a las: "+ c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE);
+        text.setText(texto);
     }
     
 
