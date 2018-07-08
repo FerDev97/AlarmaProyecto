@@ -10,25 +10,11 @@
     tools:showIn="@layout/app_bar_main">
 
     <TextView
-        android:id="@+id/texto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:fontFamily="@font/bubblegum_sans"
-        android:text="Eventos para hoy"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/md_text_white"
-        android:textSize="30sp" />
-
-    <TextView
         android:id="@+id/textoHora"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:fontFamily="@font/bubblegum_sans"
         android:text="Hora:"
         android:textColor="@color/md_text_white"

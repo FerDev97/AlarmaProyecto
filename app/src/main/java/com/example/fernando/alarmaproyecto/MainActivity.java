@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    TextView text, textoHora;
+    TextView textoHora;
     int hora,minuto;
     Switch activarAlarma;
     @Override
@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        text=(TextView)findViewById(R.id.texto);
         textoHora=(TextView)findViewById(R.id.textoHora);
         activarAlarma=(Switch)findViewById(R.id.activar);
         activarAlarma.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

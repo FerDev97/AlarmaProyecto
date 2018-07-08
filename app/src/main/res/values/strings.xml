@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Alarma Proyecto</string>
+    <string name="mainactivity">EVENTOS PARA HOY</string>
+    <string name="eventodia">EVENTOS POR DIA</string>
+    <string name="eventosmes">EVENTOS POR MES</string>
+    <string name="agregarevento">AGREGAR EVENTOS</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
