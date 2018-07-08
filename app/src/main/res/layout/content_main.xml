@@ -15,7 +15,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="211dp"
-        android:text="Setear Hora" />
+        android:text="Setear Hora"
+        android:onClick="ponerAlarma"/>
 
     <Button
         android:id="@+id/cancelar"
@@ -24,7 +25,8 @@
         android:layout_alignTop="@+id/boton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        android:text="Cancelar" />
+        android:text="Iniciar"
+        android:onClick="iniciar"/>
 
     <TextView
         android:id="@+id/texto"
