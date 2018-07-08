@@ -32,7 +32,8 @@
 
         <activity android:name=".AddEventoActivity" />
         <activity android:name=".EventoDiaActivity" />
-        <activity android:name=".EventoMesActivity"></activity>
+        <activity android:name=".EventoMesActivity" />
+        <activity android:name=".DiaActivity"></activity>
     </application>
 
 </manifest>

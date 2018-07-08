@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 ponerAlarma();
+                Snackbar.make(view, "Hora asignada", Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.close) {
-            return true;
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -156,10 +156,12 @@ public class MainActivity extends AppCompatActivity
             startActivity(x);
         }
         else if (id == R.id.evento_dia) {
-
+            Intent x=new Intent(this, EventoDiaActivity.class);
+            startActivity(x);
         }
         else if (id == R.id.evento_mes) {
-
+            Intent x=new Intent(this, EventoMesActivity.class);
+            startActivity(x);
         }
         else if (id == R.id.salir_app) {
             finish();

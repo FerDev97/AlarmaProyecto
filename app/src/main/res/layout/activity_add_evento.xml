@@ -109,7 +109,9 @@
         android:layout_alignBottom="@+id/textView3"
         android:layout_alignStart="@+id/floatingActionButton"
         android:fontFamily="@font/bubblegum_sans"
+        android:onClick="fecha"
         android:text="24/04/2018"
+        android:clickable="true"
         android:textAllCaps="false"
         android:textColor="@color/md_text_white"
         android:textSize="18sp" />
@@ -123,7 +125,9 @@
         android:fontFamily="@font/bubblegum_sans"
         android:text="04:09 am"
         android:textColor="@color/md_text_white"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:onClick="hora"
+        android:clickable="true"/>
 
     <TextView
         android:id="@+id/fecha_fin"
@@ -131,7 +135,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView4"
         android:layout_alignStart="@+id/fecha_inicio"
+        android:clickable="true"
         android:fontFamily="@font/bubblegum_sans"
+        android:onClick="fecha"
         android:text="25/04/2018"
         android:textColor="@color/md_text_white"
         android:textSize="18sp" />
@@ -146,6 +152,8 @@
         android:fontFamily="@font/bubblegum_sans"
         android:text="05:00 pm"
         android:textColor="@color/md_text_white"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:onClick="hora"
+        android:clickable="true"/>
 
 </RelativeLayout>

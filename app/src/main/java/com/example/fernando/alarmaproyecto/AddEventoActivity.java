@@ -1,7 +1,11 @@
 package com.example.fernando.alarmaproyecto;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.icu.text.UnicodeSetSpanner;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,14 +17,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class AddEventoActivity extends AppCompatActivity {
@@ -31,6 +38,8 @@ public class AddEventoActivity extends AppCompatActivity {
     ArrayList<String> lista, listaAux;
     Button agregar, cancelar;
     TextView hora_inicio, hora_fin, fecha_inicio, fecha_fin;
+    String selectedDate = "";
+    int hora, minuto;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,8 +96,6 @@ public class AddEventoActivity extends AppCompatActivity {
                 }
             }
         });
-
-
 
         opciones.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -150,6 +157,91 @@ public class AddEventoActivity extends AppCompatActivity {
         });
 
         llenar();
+    }
+
+    public void fecha(View view) {
+        fecha_inicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        // +1 porque enero es cero
+                        String d = "" + day, m = "" + (month + 1);
+                        if (day < 10) d = "0" + day;
+                        if ((month + 1) < 10) m = "0" + (month + 1);
+
+                        selectedDate = d + "/" + m + "/" + year;
+
+                        fecha_inicio.setText(selectedDate);
+                        Snackbar.make(v, "Mensaje fecha", Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+                newFragment.show(getFragmentManager(), "datePicker");
+            }
+        });
+
+        fecha_fin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        // +1 porque enero es cero
+                        String d = "" + day, m = "" + (month + 1);
+                        if (day < 10) d = "0" + day;
+                        if ((month + 1) < 10) m = "0" + (month + 1);
+
+                        selectedDate = d + "/" + m + "/" + year;
+
+                        fecha_fin.setText(selectedDate);
+                        Snackbar.make(v, "Mensaje fecha", Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+                newFragment.show(getFragmentManager(), "datePicker");
+            }
+        });
+    }
+
+    public void hora(View view) {
+        hora_inicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ponerHora(v, 1);
+            }
+        });
+
+        hora_fin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ponerHora(v, 2);
+            }
+        });
+    }
+
+    private void ponerHora(final View v, final int id) {
+        Calendar calendar=Calendar.getInstance();
+        TimePickerDialog timePickerDialog=new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
+                hora=hour;
+                final String horario;
+                if(hora>12) {
+                    hora -= 12;
+                    horario="pm";
+                }
+                else
+                    horario="am";
+
+                minuto=minutes;
+                if(id==1)
+                    hora_inicio.setText(hora+":"+minuto+" "+horario);
+                else
+                    hora_fin.setText(hora+":"+minuto+" "+horario);
+                Snackbar.make(v, "Mensaje hora", Snackbar.LENGTH_SHORT).show();
+            }
+        },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false);
+        timePickerDialog.show();
     }
 
     private void agregarTiempo() {
