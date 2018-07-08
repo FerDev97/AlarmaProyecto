@@ -24,10 +24,13 @@
 
         <receiver android:name=".AlertReceiver" />
 
-        <activity android:name=".PruebaActivity"></activity>
+        <activity android:name=".PruebaActivity" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".AddEventoActivity"></activity>
     </application>
 
 </manifest>

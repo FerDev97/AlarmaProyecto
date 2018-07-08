@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fechas">
+        <item>Tiempo</item>
+        <item>Dia(s)</item>
+        <item>Hora(s)</item>
+        <item>Minuto(s)</item>
+    </string-array>
+</resources>

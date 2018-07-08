@@ -1,0 +1,8 @@
+<resources>
+    <string-array name="opciones">
+        <item>A la misma hora</item>
+        <item>30 minutos antes</item>
+        <item>1 hora antes</item>
+        <item>Personalizado</item>
+    </string-array>
+</resources>
