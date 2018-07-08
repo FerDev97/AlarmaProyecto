@@ -22,6 +22,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -34,8 +36,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    TextView text;
+    TextView text, textoHora;
     int hora,minuto;
+    Switch activarAlarma;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +50,8 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                ponerAlarma();
             }
         });
 
@@ -62,21 +65,31 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         text=(TextView)findViewById(R.id.texto);
+        textoHora=(TextView)findViewById(R.id.textoHora);
+        activarAlarma=(Switch)findViewById(R.id.activar);
+        activarAlarma.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                    iniciar();
+            }
+        });
     }
 
-    public void ponerAlarma(View view){
+    public void ponerAlarma(){
         Calendar calendar=Calendar.getInstance();
         TimePickerDialog timePickerDialog=new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
                 hora=hour;
                 minuto=minutes;
+                textoHora.setText("Hora: "+hora+":"+minuto);
             }
         },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false);
         timePickerDialog.show();
     }
 
-    public void iniciar(View view){
+    public void iniciar(){
         Intent intent=new Intent(this,AlertReceiver.class);
         PendingIntent pendingIntent=PendingIntent.getBroadcast(this.getApplicationContext(),23433,intent,0);
         AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);

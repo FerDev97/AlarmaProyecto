@@ -4,37 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_text_white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.fernando.alarmaproyecto.MainActivity"
     tools:showIn="@layout/app_bar_main">
-
-    <Button
-        android:id="@+id/boton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="211dp"
-        android:text="Setear Hora"
-        android:onClick="ponerAlarma"/>
-
-    <Button
-        android:id="@+id/cancelar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/boton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:text="Iniciar"
-        android:onClick="iniciar"/>
 
     <TextView
         android:id="@+id/texto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/boton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="132dp"
-        android:text="Alarma para: 12:00"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:fontFamily="@font/bubblegum_sans"
+        android:text="Eventos para hoy"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/md_black_1000"
         android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/textoHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:fontFamily="@font/bubblegum_sans"
+        android:text="Hora:"
+        android:textColor="@color/md_black_1000"
+        android:textSize="24sp" />
+
+    <Switch
+        android:id="@+id/activar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textoHora"
+        android:layout_alignParentEnd="true"
+        android:checked="false"
+        android:textOff="Desactivada"
+        android:textOn="Activada"
+        tools:checked="false" />
 </RelativeLayout>
