@@ -1,5 +1,7 @@
 package com.example.fernando.alarmaproyecto;
 
+import android.content.DialogInterface;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,7 +42,6 @@ public class AddEventoActivity extends AppCompatActivity {
         fecha_inicio=(TextView)findViewById(R.id.fecha_inicio);
         hora_fin=(TextView)findViewById(R.id.hora_fin);
         fecha_fin=(TextView)findViewById(R.id.fecha_fin);
-
         fecha_fin.setText("12/08/2018");
         fecha_inicio.setText("10/05/2018");
         hora_inicio.setText("12:00 am");
@@ -54,8 +55,8 @@ public class AddEventoActivity extends AppCompatActivity {
                     Date d=new Date();
                     fecha_fin.setText(fecha.format(d));
                     fecha_inicio.setText(fecha.format(d));
-                    hora_inicio.setText("12:00 am");
-                    hora_fin.setText("12:00 am");
+                    hora_inicio.setText("Todo el día");
+                    hora_fin.setText("Todo el día");
                 }
                 else {
                     fecha_fin.setText("12/08/2018");
@@ -70,21 +71,50 @@ public class AddEventoActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position==3) {
-                    AlertDialog.Builder dialog=new AlertDialog.Builder(AddEventoActivity.this);
+                    final AlertDialog.Builder dialog=new AlertDialog.Builder(AddEventoActivity.this);
                     view=getLayoutInflater().inflate(R.layout.dialogo, null);
                     tiempos=(Spinner)view.findViewById(R.id.tiempos);
                     cantidad=(EditText)view.findViewById(R.id.cantidad);
-                    agregar=(Button)view.findViewById(R.id.add);
-                    cancelar=(Button)view.findViewById(R.id.cancel);
                     llenarTiempos();
+
+                    dialog.setTitle("Personalizado");
+                    dialog.setMessage("Agregue un tiempo determinado.");
+
+                    dialog.setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(!cantidad.getText().toString().isEmpty() && Integer.parseInt(cantidad.getText().toString())>0 && !tiempos.getSelectedItem().toString().equals("Tiempo")) {
+                                Toast.makeText(getBaseContext(), "Agregado con exito.", Toast.LENGTH_SHORT).show();
+                                agregarTiempo();
+                            }
+                            else
+                                Toast.makeText(getBaseContext(), "Ingrese el tiempo.", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    /*
 
                     agregar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if(!cantidad.getText().toString().isEmpty() && !tiempos.getSelectedItem().toString().equals("Tiempo"))
+                            if(!cantidad.getText().toString().isEmpty() && !tiempos.getSelectedItem().toString().equals("Tiempo")) {
+                                Snackbar.make(null, "Agregado con exito.", Snackbar.LENGTH_SHORT).show();
                                 agregarTiempo();
+                            }
+                            else
+                                Snackbar.make(null, "Ingrese el tiempo.", Snackbar.LENGTH_SHORT).show();
                         }
                     });
+
+                    */
                     dialog.setView(view);
                     AlertDialog mDialogo=dialog.create();
                     mDialogo.show();
@@ -100,11 +130,11 @@ public class AddEventoActivity extends AppCompatActivity {
     }
 
     private void agregarTiempo() {
-        Toast.makeText(getBaseContext(), "Funciona.",Toast.LENGTH_SHORT).show();
         finish();
     }
 
     private void llenar() {
+        lista=new ArrayList<>();
         lista.add("A la misma hora");
         lista.add("30 minutos antes");
         lista.add("1 hora antes");
@@ -115,11 +145,11 @@ public class AddEventoActivity extends AppCompatActivity {
     }
 
     private void llenarTiempos() {
+        listaAux=new ArrayList<>();
         listaAux.add("Tiempo");
         listaAux.add("Minuto(s)");
         listaAux.add("Hora(s)");
         listaAux.add("Dia(s)");
-
 
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaAux);
         tiempos.setAdapter(adapter);
