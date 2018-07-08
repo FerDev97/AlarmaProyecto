@@ -30,7 +30,9 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".AddEventoActivity"></activity>
+        <activity android:name=".AddEventoActivity" />
+        <activity android:name=".EventoDiaActivity" />
+        <activity android:name=".EventoMesActivity"></activity>
     </application>
 
 </manifest>

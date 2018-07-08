@@ -5,6 +5,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,6 +31,24 @@ public class AddEventoActivity extends AppCompatActivity {
     ArrayList<String> lista, listaAux;
     Button agregar, cancelar;
     TextView hora_inicio, hora_fin, fecha_inicio, fecha_fin;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.acciones, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.atras:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +87,8 @@ public class AddEventoActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
         opciones.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
